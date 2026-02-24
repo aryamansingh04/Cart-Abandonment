@@ -1,62 +1,129 @@
-# Cart Abandonment Analysis
+# Cart Abandonment Prediction – Model Training & Evaluation
 
-A comprehensive analysis of cart abandonment patterns across multiple e-commerce datasets, identifying key factors that influence customer purchase completion rates.
+A complete machine learning pipeline to predict cart abandonment using multiple classification models, model comparison, hyperparameter tuning, and performance evaluation.
 
-## Project Overview
+---
 
-This project analyzes cart abandonment behavior using data from three major e-commerce platforms:
-- **Olist**: Brazilian e-commerce marketplace dataset
-- **Otto**: Recommendation system dataset
-- **Retail Rocket**: E-commerce behavior dataset
+## 📌 Project Overview
 
-The goal is to understand why customers abandon their shopping carts and identify actionable insights to improve conversion rates.
+This project builds and evaluates multiple machine learning models to predict whether a customer will abandon their cart.
 
-## Datasets
+The workflow includes:
 
-### Olist Dataset
-- `olist_customers_dataset.csv` - Customer information and location
-- `olist_orders_dataset.csv` - Order details and status
-- `olist_order_items_dataset.csv` - Items in each order
-- `olist_order_payments_dataset.csv` - Payment information
-- `olist_order_reviews_dataset.csv` - Customer reviews and ratings
-- `olist_products_dataset.csv` - Product catalog
-- `olist_sellers_dataset.csv` - Seller information
-- `olist_geolocation_dataset.csv` - Geographic data
-- `product_category_name_translation.csv` - Category translations
+- Data loading and preprocessing
+- Feature encoding and scaling
+- Training five classification algorithms
+- Model comparison using evaluation metrics
+- Automatic best model selection
+- Hyperparameter tuning
+- Performance comparison (before vs after tuning)
+- Visual performance analysis
 
-### Otto Dataset
-- `otto-recsys-train.jsonl` - Training data for recommendation systems
-- `otto-recsys-test.jsonl` - Test data for recommendation systems
+The objective is to identify the most effective model for predicting cart abandonment and interpret its business impact.
 
-### Retail Rocket Dataset
-- `events.csv` - User event logs
-- `category_tree.csv` - Product category hierarchy
-- `item_properties_part1.csv` & `item_properties_part2.csv` - Product attributes
+---
 
-### Additional Data
-- `online_retail_II.csv` - UK online retail transaction data
+## 📂 Dataset
 
-## Analysis
+**File Used:** `cart_abandonment_data.csv`
 
-The Jupyter notebook (`notebook.ipynb`) contains:
-- **Exploratory Data Analysis (EDA)** - Understanding data distributions and patterns
-- **Data Preprocessing** - Cleaning and preparing data for analysis
-- **Cart Abandonment Patterns** - Identifying abandonment trends
-- **Feature Engineering** - Creating meaningful features for analysis
-- **Visualizations** - Key insights and findings
-- **Recommendations** - Actionable strategies to reduce cart abandonment
+### 🎯 Target Variable:
+- `Cart_Abandoned`
+  - 1 → Abandoned
+  - 0 → Purchased
 
-## Key Findings
+### 📊 Features Include:
+- Customer behavior indicators
+- Product interaction features
+- Session-level information
+- `Customer_Segment_Type`
+- `Is_Product_Details_viewed` (Yes/No)
+- Numerical engagement metrics
 
-(Refer to the notebook for detailed findings and visualizations)
+---
 
-## How to Use
+## 🛠 Notebook Workflow (`Model_Training.ipynb`)
 
-1. **View the Analysis**: Open `notebook.ipynb` in Jupyter or Google Colab
-2. **Run the Code**: Execute cells sequentially to reproduce the analysis
-3. **Customize**: Modify queries and parameters to explore different aspects
+### STEP 1 – Load Data
+- Load dataset using pandas
+- Display head, info, and null values
+- Analyze class distribution
 
-## Requirements
+### STEP 2 – Preprocessing
+- Separate features (X) and target (y)
+- Map Yes/No → 1/0
+- One-hot encode `Customer_Segment_Type`
+- Scale numerical features using `StandardScaler`
+- Use `ColumnTransformer` for consistent preprocessing
+
+### STEP 3 – Train-Test Split
+- 80% Training
+- 20% Testing
+- Stratified split
+- `random_state=42`
+
+---
+
+## 🤖 Models Trained
+
+The following five classification models were trained separately:
+
+1. Logistic Regression  
+2. Decision Tree  
+3. Random Forest  
+4. Support Vector Machine (SVM)  
+5. Gradient Boosting  
+
+Each model was evaluated using:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+
+---
+
+## 📈 Model Comparison
+
+- All models were compared using a structured DataFrame.
+- Models were sorted based on **F1 Score**.
+- The best-performing model was automatically selected.
+
+---
+
+## ⚙ Hyperparameter Tuning
+
+- Performed using `GridSearchCV`
+- 5-Fold Cross Validation
+- Optimized for F1 Score
+- Compared performance before and after tuning
+
+---
+
+## 📊 Visualizations
+
+For the tuned best model:
+
+- Confusion Matrix (Heatmap)
+- ROC Curve
+- Precision-Recall Curve
+- Feature Importance Plot (tree-based models)
+  OR
+- Coefficient Visualization (linear models)
+
+---
+
+## ✅ Key Outcomes
+
+- Identified the best classification model
+- Improved performance via hyperparameter tuning
+- Evaluated using multiple metrics
+- Built a complete ML evaluation pipeline
+
+---
+
+## 📦 Requirements
 
 - Python 3.7+
 - pandas
@@ -64,7 +131,11 @@ The Jupyter notebook (`notebook.ipynb`) contains:
 - matplotlib
 - seaborn
 - scikit-learn
-- plotly (for interactive visualizations)
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
 
 ## Installation
 
